@@ -56,8 +56,6 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 require('dotenv').config();
 
-console.log("EMAIL_USER:", process.env.EMAIL_USER);
-console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
 
 const transporter = nodemailer.createTransport({
     service: "Gmail",
