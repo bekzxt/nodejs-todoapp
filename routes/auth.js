@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
         if (!isMatch) {
             user.failedLoginAttempts += 1;
             if (user.failedLoginAttempts >= 5) {
-                user.lockUntil = Date.now() + 1 * 1000;
+                user.lockUntil = Date.now() + 60 * 1000;
             }
             await user.save();
             return res.send("Incorrect password.");
