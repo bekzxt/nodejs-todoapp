@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<nav>
+    <a href="/">Home</a>
+    <a href="/tasks">Tasks</a>
+    <a href="/logout">Logout</a>
+</nav>
+<% if (userName) { %>
+    <div class="alert alert-success">Welcome back, <%= userName %>!</div>
+<% } %>
+
+<div class="container">
+    <h1>Your Tasks</h1>
+    <form action="/tasks" method="POST">
+        <input type="text" name="title" placeholder="New task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <ul class="task-list">
+        <% tasks.forEach(task => { %>
+            <li>
+                <span class="<%= task.completed ? 'completed' : '' %>"><%= task.title %></span>
+                <% if (!task.completed) { %>
+                    <form action="/tasks/<%= task._id %>/complete" method="POST" class="inline-form">
+                        <button type="submit">Mark as Done</button>
+                    </form>
+                <% } %>
+                <form action="/tasks/<%= task._id %>/delete" method="POST" class="inline-form">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</div>
+</body>
+</html>
