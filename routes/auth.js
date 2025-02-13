@@ -73,14 +73,17 @@ router.post("/forgot-password", async (req, res) => {
     user.resetToken = crypto.randomBytes(32).toString("hex");
     await user.save();
 
+    const resetLink = `https://nodejs-todoapp-1-dzpa.onrender.com/reset/${user.resetToken}`;
+
     await transporter.sendMail({
         to: user.email,
         subject: "Password Reset",
-        text: `Click here to reset: http://localhost:3000/reset/${user.resetToken}`
+        text: `Click here to reset your password: ${resetLink}`
     });
 
     res.send("Check your email for the reset link.");
 });
+
 
 router.get("/signup", (req, res) => {
     res.render("signup"); // This will render views/signup.ejs
